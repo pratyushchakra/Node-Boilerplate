@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
 const productRoutes = require('./api/routes/products')
+const userRoutes = require('./api/routes/user')
 // import { body-parser } from "body-parser";
 
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/products', productRoutes)
+app.use('/user', userRoutes)
 
 mongoose.connect('mongodb+srv://pratyush:' + process.env.MONGO_ATLAS_PW
     + '@mindfare-inu2o.mongodb.net/test?retryWrites=true')
