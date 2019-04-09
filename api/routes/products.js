@@ -6,7 +6,9 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
+        console.log('adasdasdas');
         let response = await Product.find()
+        console.log('response: ', response);
         res.status(200).send({
             status: 1,
             response
@@ -20,13 +22,13 @@ router.post('/', async (req, res) => {
     console.log('req.body: ', req.body);
     try {
         res.status(200).send({
-            response: await Product(req.body),
+            response: await Product.create(req.body),
             status: 1
         })
     } catch (error) {
         res.status(400).send({
             status: 1,
-            message: error.response ? error.response.data : err
+            message: error.response ? error.response.data : error
         })
         console.log('error: ', error);
     }
@@ -41,16 +43,16 @@ router.get('/:id', async (req, res) => {
     } catch (error) {
         res.status(400).send({
             status: 1,
-            message: error.response ? error.response.data : err
+            message: error.response ? error.response.data : error
         })
         console.log('error: ', error);
     }
 
 })
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
     try {
-        const {id} = req.params
-        let response = await Product.remove({_id: id})
+        const { id } = req.params
+        let response = await Product.remove({ _id: id })
         res.status(200).send({
             status: 1,
             response

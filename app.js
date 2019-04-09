@@ -25,9 +25,10 @@ app.use((req, res, next) => {
 
 app.use('/products', productRoutes)
 app.use('/user', userRoutes)
-
-mongoose.connect('mongodb+srv://pratyush:' + process.env.MONGO_ATLAS_PW
-    + '@mindfare-inu2o.mongodb.net/test?retryWrites=true')
+mongoose.connect('mongodb+srv://temp:' + process.env.MONGO_ATLAS_PW
+    + '@cluster1-inu2o.mongodb.net/test?retryWrites=true')
+// mongoose.connect('mongodb+srv://pratyush:' + process.env.MONGO_ATLAS_PW
+//     + '@mindfare-inu2o.mongodb.net/test?retryWrites=true')
 
 app.use((req, res, next) => {
     const error = new Error("Page Not found ")
@@ -35,7 +36,7 @@ app.use((req, res, next) => {
     next(error)
 })
 app.use((error, req, res, next) => {
-    res.status(err.status || 500)
+    res.status(error.status || 500)
     res.send({
         message: error.message
     })
